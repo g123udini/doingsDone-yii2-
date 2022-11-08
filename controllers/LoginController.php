@@ -10,9 +10,8 @@ use yii\web\Controller;
 class LoginController extends Controller
 {
     function actionIndex() {
-        $this->layout = 'landing';
 
-        return $this->render('start');
+        return $this->render('login');
     }
 
     function actionRegistration() {
@@ -30,5 +29,15 @@ class LoginController extends Controller
         }
 
         return $this->render('registration', ['model' => $registrationForm]);
+    }
+
+    function actionStart() {
+        $this->layout = 'landing';
+
+        return $this->render('start');
+    }
+
+    function actionLogin() {
+
     }
 }
