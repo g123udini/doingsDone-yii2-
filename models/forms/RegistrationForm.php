@@ -3,6 +3,7 @@ namespace app\models\forms;
 
 use app\models\User;
 use DoingsDone\exceptions\ModelSaveException;
+use Yii;
 use yii\base\Model;
 
 class RegistrationForm extends Model
@@ -38,7 +39,7 @@ class RegistrationForm extends Model
         $user = new User();
         $user->email = $this->email;
         $user->login = $this->login;
-        $user->password = $this->password;
+        $user->password = Yii::$app->security->generatePasswordHash($this->password);
 
         return $user;
     }

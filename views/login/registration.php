@@ -17,11 +17,11 @@ use yii\widgets\ActiveForm;
     </div>
 
     <div class="form__row">
-        <?= $form->field($model, 'password')->input('password', ['class' => 'form__input', 'labelOptions' => ['class' => 'form__label']]) ?>
+        <?= $form->field($model, 'password')->passwordInput(['class' => 'form__input', 'labelOptions' => ['class' => 'form__label']]) ?>
     </div>
 
     <div class="form__row">
-        <?= $form->field($model, 'passwordRepeat')->input('password', ['class' => 'form__input', 'labelOptions' => ['class' => 'form__label']]) ?>
+        <?= $form->field($model, 'passwordRepeat')->passwordInput(['class' => 'form__input', 'labelOptions' => ['class' => 'form__label']]) ?>
     </div>
 
     <input class="button" type="submit" name="" value="Зарегистрироваться">

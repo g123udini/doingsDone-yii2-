@@ -75,6 +75,11 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Task::class, ['user_id' => 'id']);
     }
 
+    public function validatePassword($password)
+    {
+        return Yii::$app->security->validatePassword($password, $this->password);
+    }
+
     public static function findIdentity($id)
     {
         return self::findOne($id);

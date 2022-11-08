@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\forms\loginForm;
 use app\models\forms\RegistrationForm;
 use DoingsDone\exceptions\ModelSaveException;
 use Yii;
@@ -10,8 +11,19 @@ use yii\web\Controller;
 class LoginController extends Controller
 {
     function actionIndex() {
+        $loginForm = new loginForm();
 
-        return $this->render('login');
+        if (Yii::$app->request->isPost) {
+            $loginForm->load(Yii::$app->request->post());
+
+            if ($loginForm->validate()) {
+
+                Yii::$app->user->login($loginForm->getUser());
+                //$this->goHome();
+            }
+        }
+
+        return $this->render('login', ['model' => $loginForm]);
     }
 
     function actionRegistration() {
