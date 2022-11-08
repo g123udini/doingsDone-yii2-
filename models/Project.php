@@ -47,7 +47,7 @@ class Project extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Название проекта',
             'task_id' => 'Task ID',
             'user_id' => 'User ID',
         ];

@@ -29,8 +29,8 @@ AppAsset::register($this);
         <div class="content">
             <section class="content__side">
                 <?= EnterButtonWidget::widget(['type' => $this->context->route]); ?>
-
             </section>
+
 
 <?= $content ?>
         </div>
