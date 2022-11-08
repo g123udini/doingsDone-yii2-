@@ -1,52 +1,31 @@
 <?php
 ?>
-<div class="page-wrapper">
-    <div class="container container--with-sidebar">
 
-        <header class="main-header">
-            <a href="#">
-                <img src="../../../../../Downloads/doingsdone/init/img/logo.png" width="153" height="42" alt="Логитип Дела в порядке">
-            </a>
+<main class="content__main">
+    <h2 class="content__main-heading">Вход на сайт</h2>
 
-            <div class="main-header__side">
-                <a class="main-header__side-item button button--transparent" href="form-authorization.html">Войти</a>
-            </div>
-        </header>
+    <form class="form" action="index.html" method="post" autocomplete="off">
+        <div class="form__row">
+            <label class="form__label" for="email">E-mail <sup>*</sup></label>
 
-        <div class="content">
+            <input class="form__input form__input--error" type="text" name="email" id="email" value=""
+                   placeholder="Введите e-mail">
 
-            <section class="content__side">
-                <p class="content__side-info">Если у вас уже есть аккаунт, авторизуйтесь на сайте</p>
-
-                <a class="button button--transparent content__side-button" href="form-authorization.html">Войти</a>
-            </section>
-
-            <main class="content__main">
-                <h2 class="content__main-heading">Вход на сайт</h2>
-
-                <form class="form" action="index.html" method="post" autocomplete="off">
-                    <div class="form__row">
-                        <label class="form__label" for="email">E-mail <sup>*</sup></label>
-
-                        <input class="form__input form__input--error" type="text" name="email" id="email" value="" placeholder="Введите e-mail">
-
-                        <p class="form__message">E-mail введён некорректно</p>
-                    </div>
-
-                    <div class="form__row">
-                        <label class="form__label" for="password">Пароль <sup>*</sup></label>
-
-                        <input class="form__input" type="password" name="password" id="password" value="" placeholder="Введите пароль">
-                    </div>
-
-                    <div class="form__row form__row--controls">
-                        <input class="button" type="submit" name="" value="Войти">
-                    </div>
-                </form>
-
-            </main>
-
+            <p class="form__message">E-mail введён некорректно</p>
         </div>
 
-    </div>
-</div>
+        <div class="form__row">
+            <label class="form__label" for="password">Пароль <sup>*</sup></label>
+
+            <input class="form__input" type="password" name="password" id="password" value=""
+                   placeholder="Введите пароль">
+        </div>
+
+        <div class="form__row form__row--controls">
+            <input class="button" type="submit" name="" value="Войти">
+        </div>
+    </form>
+
+</main>
+
+
