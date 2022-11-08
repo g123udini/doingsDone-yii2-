@@ -13,7 +13,7 @@
                 сроки.</p>
         </div>
 
-        <a class="welcome__button button" href="register.html">Зарегистрироваться</a>
+        <a class="welcome__button button" href="<?= Yii::$app->urlManager->createUrl('login/registration') ?>">Зарегистрироваться</a>
     </section>
 </div>
 
