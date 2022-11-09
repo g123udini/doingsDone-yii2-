@@ -4,6 +4,7 @@ namespace app\models\forms;
 
 use app\models\File;
 use app\models\Project;
+use app\models\ProjectTask;
 use app\models\Task;
 use DoingsDone\exceptions\ModelSaveException;
 use Psy\Readline\Hoa\FileException;
@@ -53,6 +54,9 @@ class AddTaskForm extends Model
             if (!$task->save()) {
                 throw new ModelSaveException('Не удалось сохранить задание');
             }
+            if (!$this->saveProjectTask($task)) {
+                throw new ModelSaveException('Не удалось сохранить связь между заданием и проектом');
+            }
             if ($this->files) {
                 $this->saveFilesNames($task);
             }
@@ -61,6 +65,15 @@ class AddTaskForm extends Model
             $transaction->rollBack();
             throw new ModelSaveException($exception->getMessage());
         }
+    }
+
+    private function saveProjectTask($task)
+    {
+        $taskProject = new ProjectTask();
+        $taskProject->project_id = $this->project_id;
+        $taskProject->task_id = $task->id;
+
+        return $taskProject->save();
     }
 
     private function saveFilesNames(Task $task)

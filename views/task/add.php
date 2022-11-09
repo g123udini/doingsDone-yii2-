@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 
         <?php $form = ActiveForm::begin(['id' => 'task-form', 'class' => 'form']); ?>
         <div class="form__row">
-            <?= $form->field($model, 'name')->textInput(['class' => 'form__input', 'placeholder' => 'Введите название...', 'labelOptions' => ['class' => 'form__label']]) ?>
+            <?= $form->field($model, 'name')->textInput(['class' => 'form__input', 'placeholder' => 'Введите название...', 'autocomplete' => false, 'labelOptions' => ['class' => 'form__label']]) ?>
         </div>
 
         <div class="form__row">

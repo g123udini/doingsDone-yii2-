@@ -84,9 +84,9 @@ class Task extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getProjects()
+    public function getTaskProjects()
     {
-        return $this->hasMany(Project::class, ['task_id' => 'id']);
+        return $this->hasMany(ProjectTask::class, ['task_id' => 'id']);
     }
 
     /**
@@ -97,5 +97,14 @@ class Task extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    public static function getTasksByProject($id)
+    {
+        return Task::find()
+            ->where(['project_id' => $id])
+            ->join('JOIN', 'project_task', 'task.id=task_id')
+            ->asArray()
+            ->all();
     }
 }

@@ -4,8 +4,11 @@ namespace app\controllers;
 
 use app\models\forms\AddTaskForm;
 use app\models\Project;
+use app\models\Task;
 use DoingsDone\exceptions\ModelSaveException;
 use Yii;
+use yii\data\ActiveDataProvider;
+use yii\debug\models\timeline\DataProvider;
 use yii\web\Controller;
 use yii\web\UploadedFile;
 
@@ -50,6 +53,11 @@ class TaskController extends Controller
 
     public function actionList($id)
     {
-        return $this->render('list');
+        $dataProvider = new ActiveDataProvider([
+            'query' => Task::getTasksByProject($id),
+
+        ]);
+
+        return $this->render('list', ['dataProvider' => $dataProvider]);
     }
 }
