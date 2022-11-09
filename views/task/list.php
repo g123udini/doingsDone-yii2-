@@ -1,5 +1,6 @@
 <?php
-?>
+
+use yii\grid\GridView; ?>
 <main class="content__main">
     <h2 class="content__main-heading">Список задач</h2>
 
@@ -22,7 +23,22 @@
             <span class="checkbox__text">Показывать выполненные</span>
         </label>
     </div>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'tableOptions' => [
+            'class' => 'tasks'
+        ],
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
 
+            'name',
+            'dt_add',
+            'deadline',
+            'file',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
     <table class="tasks">
             <tr class="tasks__item task task--completed task--important">
                 <td class="task__select">

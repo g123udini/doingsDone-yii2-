@@ -60,16 +60,6 @@ class Task extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Files]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getFiles()
-    {
-        return $this->hasMany(File::class, ['task_id' => 'id']);
-    }
-
-    /**
      * Gets query for [[Project]].
      *
      * @return \yii\db\ActiveQuery
@@ -99,12 +89,11 @@ class Task extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    public static function getTasksByProject($id)
+    public static function getQueryTasksByProject($id)
     {
         return Task::find()
             ->where(['project_id' => $id])
             ->join('JOIN', 'project_task', 'task.id=task_id')
-            ->asArray()
-            ->all();
+            ->orderBy(['dt_add' => 'DESC']);
     }
 }

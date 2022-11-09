@@ -2,12 +2,10 @@
 
 namespace app\models\forms;
 
-use app\models\File;
 use app\models\Project;
 use app\models\ProjectTask;
 use app\models\Task;
 use DoingsDone\exceptions\ModelSaveException;
-use Psy\Readline\Hoa\FileException;
 use Yii;
 use yii\base\Model;
 use yii\db\Exception;
@@ -18,15 +16,15 @@ class AddTaskForm extends Model
     public $userId;
     public $project_id;
     public $deadline;
-    public $files = [];
-    public $filePaths = [];
+    public $file;
+    public $filePath;
 
     public function rules()
     {
         return [
             [['name'], 'string'],
             [['name', 'userId'], 'required'],
-            [['files'], 'file', 'skipOnEmpty' => true, 'maxFiles' => 4, 'checkExtensionByMimeType' => false],
+            [['file'], 'file'],
             [['deadline'], 'date', 'format' => 'php:Y-m-d'],
             [['project_id'], 'exist', 'targetClass' => Project::class, 'targetAttribute' => ['project_id' => 'id']]
         ];
@@ -48,6 +46,10 @@ class AddTaskForm extends Model
         $task->user_id = $this->userId;
         $task->deadline = $this->deadline;
 
+        if ($this->uploadFile()) {
+            $task->file = $this->filePath;
+        }
+
         $transaction = Yii::$app->db->beginTransaction();
 
         try {
@@ -56,9 +58,6 @@ class AddTaskForm extends Model
             }
             if (!$this->saveProjectTask($task)) {
                 throw new ModelSaveException('Не удалось сохранить связь между заданием и проектом');
-            }
-            if ($this->files) {
-                $this->saveFilesNames($task);
             }
             $transaction->commit();
         } catch (Exception $exception) {
@@ -76,28 +75,13 @@ class AddTaskForm extends Model
         return $taskProject->save();
     }
 
-    private function saveFilesNames(Task $task)
+    private function uploadFile()
     {
-        if ($this->uploadFiles()) {
-            foreach ($this->filePaths as $filePath) {
-                $file = new File();
-                $file->name = $filePath;
-                $file->task_id = $task->id;
-                if (!$file->save()) {
-                    throw new ModelSaveException('Не удалось сохранить название файла');
-                }
-            }
-        }
-    }
+        if ($this->file && $this->validate()) {
+                $newName = uniqid('uploads') . '.' . $this->file->getExtension();
+                $this->file->saveAs('@webroot/uploads/' . $newName);
+                $this->filePath = $newName;
 
-    private function uploadFiles()
-    {
-        if ($this->files && $this->validate()) {
-            foreach ($this->files as $file) {
-                $newName = uniqid('uploads') . '.' . $file->getExtension();
-                $file->saveAs('@webroot/uploads/' . $newName);
-                $this->filePaths[] = $newName;
-            }
             return true;
         }
 

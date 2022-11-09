@@ -42,7 +42,7 @@ class TaskController extends Controller
             $addTaskForm->load(Yii::$app->request->post());
 
             if ($addTaskForm->validate()) {
-                $addTaskForm->files = UploadedFile::getInstances($addTaskForm, 'files');
+                $addTaskForm->file = UploadedFile::getInstance($addTaskForm, 'file');
 
                 $addTaskForm->loadToTask();
             }
@@ -54,7 +54,7 @@ class TaskController extends Controller
     public function actionList($id)
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Task::getTasksByProject($id),
+            'query' => Task::getQueryTasksByProject($id),
 
         ]);
 
