@@ -9,6 +9,11 @@
                 <a class="main-navigation__list-item-link" href="#">Входящие</a>
                 <span class="main-navigation__list-item-count">24</span>
             </li>
+
+            <li class="main-navigation__list-item main-navigation__list-item--active">
+                <a class="main-navigation__list-item-link" href="#">Работа</a>
+                <span class="main-navigation__list-item-count">12</span>
+            </li>
         </ul>
     </nav>
 

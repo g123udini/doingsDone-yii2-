@@ -9,7 +9,6 @@ use Yii;
  *
  * @property int $id
  * @property string $name
- * @property int $project_id
  * @property int $user_id
  * @property string|null $dt_add
  * @property string|null $deadline
@@ -36,12 +35,11 @@ class Task extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'project_id', 'user_id'], 'required'],
-            [['project_id', 'user_id', 'status'], 'integer'],
+            [['name', 'user_id'], 'required'],
+            [['user_id', 'status'], 'integer'],
             [['dt_add', 'deadline'], 'safe'],
             [['name'], 'string', 'max' => 320],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
-            [['project_id'], 'exist', 'skipOnError' => true, 'targetClass' => Project::class, 'targetAttribute' => ['project_id' => 'id']],
         ];
     }
 
