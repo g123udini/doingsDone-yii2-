@@ -48,4 +48,8 @@ class TaskController extends Controller
         return $this->render('task', ['model' => $addTaskForm]);
     }
 
+    public function actionList()
+    {
+        return $this->render('list');
+    }
 }
