@@ -59,6 +59,8 @@ AppAsset::register($this);
             <p>Веб-приложение для удобного ведения списка дел.</p>
         </div>
 
+        <a class="main-footer__button button button--plus" href="<?= Yii::$app->urlManager->createUrl(['task/add']) ?>">Добавить задачу</a>
+
         <div class="main-footer__social social">
             <span class="visually-hidden">Мы в соцсетях:</span>
             <a class="social__link social__link--facebook" href="#">

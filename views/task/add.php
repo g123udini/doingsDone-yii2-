@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
         <div class="form__row">
             <label class="form__label" for="file">Файл</label>
             <div class="form__input-file">
-                <?= $form->field($model, 'files[]')->fileInput(['multiple' => true, 'class' => 'button button--transparent'])->label(false) ?>
+                <?= $form->field($model, 'files[]')->fileInput(['multiple' => true, 'class' => 'button', 'style' => 'width: 300px;'])->label(false) ?>
             </div>
         </div>
 
