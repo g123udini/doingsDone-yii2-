@@ -2,6 +2,7 @@
 
 use app\assets\AppAsset;
 use app\widgets\EnterButtonWidget;
+use yii\helpers\Html;
 
 AppAsset::register($this);
 ?>
@@ -24,6 +25,13 @@ AppAsset::register($this);
             <a href="#">
                 <img src="<?= Yii::$app->urlManager->baseUrl ?> /img/logo.png" width="153" height="42" alt="Логитип Дела в порядке">
             </a>
+            <div class="main-header__side-item user-menu">
+                <div class="user-menu__data">
+                    <p><?= Yii::$app->user->identity?->login ?></p>
+
+                    <?= !Yii::$app->user->isGuest ? Html::a('Выйти', Yii::$app->urlManager->createUrl(['login/logout'])) : null ?>
+                </div>
+            </div>
         </header>
 
         <div class="content">

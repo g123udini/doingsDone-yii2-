@@ -19,7 +19,7 @@ class LoginController extends Controller
             if ($loginForm->validate()) {
 
                 Yii::$app->user->login($loginForm->getUser());
-                //$this->goHome();
+                $this->goHome();
             }
         }
 
@@ -49,7 +49,9 @@ class LoginController extends Controller
         return $this->render('start');
     }
 
-    function actionLogin() {
+    function actionLogout() {
+        Yii::$app->user->logout();
 
+        return $this->redirect('start');
     }
 }
