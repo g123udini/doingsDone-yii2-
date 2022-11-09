@@ -22,13 +22,19 @@ AppAsset::register($this);
     <div class="container container--with-sidebar">
         <header class="main-header">
             <a href="#">
-                <img src="../img/logo.png" width="153" height="42" alt="Логитип Дела в порядке">
+                <img src="<?= Yii::$app->urlManager->baseUrl ?> /img/logo.png" width="153" height="42" alt="Логитип Дела в порядке">
             </a>
         </header>
 
         <div class="content">
             <section class="content__side">
-                <?= EnterButtonWidget::widget(['type' => $this->context->route]); ?>
+                <?php
+                if (Yii::$app->user->isGuest) {
+                    echo EnterButtonWidget::widget(['type' => $this->context->route]);
+                } else {
+                    echo Yii::$app->view->render('@app/views/task/sideSection');
+                }
+                ?>
             </section>
 
 

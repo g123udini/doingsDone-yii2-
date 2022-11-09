@@ -47,7 +47,8 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '' => 'site/index'
+                '' => 'site/index',
+                'task/list/<id:\d+>' => 'task/list',
             ],
         ],
     ],

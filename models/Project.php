@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Query;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -52,23 +53,13 @@ class Project extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Tasks]].
+     * Gets query for [[ProjectTasks]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getTasks()
+    public function getProjectTasks()
     {
-        return $this->hasMany(Task::class, ['project_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::class, ['id' => 'user_id']);
+        return $this->hasMany(ProjectTask::class, ['project_id' => 'id']);
     }
 
     public static function getProjectsList()
@@ -80,5 +71,20 @@ class Project extends \yii\db\ActiveRecord
             ->all();
 
         return ArrayHelper::map($projectsList, 'id', 'name');
+    }
+
+    public static function getProjectsMenu(): array
+    {
+        $result = [];
+        foreach (Project::findAll(['user_id' => Yii::$app->user->id]) as $project) {
+            $result[] = ['label' => $project->name, 'url' => ['task/list', 'id' => $project->id]];
+        }
+
+        return $result;
+    }
+
+    public static function getProjectCount($name)
+    {
+        return Project::findOne(['name' => $name])->getProjectTasks()->count();
     }
 }
