@@ -73,18 +73,12 @@ class Project extends \yii\db\ActiveRecord
         return ArrayHelper::map($projectsList, 'id', 'name');
     }
 
-    public static function getProjectsMenu(): array
-    {
-        $result = [];
-        foreach (Project::findAll(['user_id' => Yii::$app->user->id]) as $project) {
-            $result[] = ['label' => $project->name, 'url' => ['task/list', 'id' => $project->id]];
-        }
 
-        return $result;
-    }
-
-    public static function getProjectCount($name)
+    public function getProjectTasksCount()
     {
-        return Project::findOne(['name' => $name])->getProjectTasks()->count();
+        return Task::find()
+            ->join('JOIN', 'project_task', 'task.id=project_task.task_id')
+            ->where(['project_id' => $this->id])
+            ->count();
     }
 }

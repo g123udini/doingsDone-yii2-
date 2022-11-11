@@ -7,12 +7,18 @@ use yii\widgets\Menu;
 
     <nav class="main-navigation">
             <?php
+            $items = [];
+            foreach (Project::findAll(['user_id' => Yii::$app->user->id]) as $project) {
+                $items[] = ['label' => sprintf('%s <span>%d</span>', $project->name, $project->getProjectTasksCount()), 'url' => ['task/list', 'id' => $project->id]];
+            }
+
             echo Menu::widget([
-                    'items' => Project::getProjectsMenu(),
+                    'items' => $items,
                 'options' => ['class' => 'main-navigation__list'],
                 'itemOptions' => ['class' => 'main-navigation__list-item'],
-                'linkTemplate' => '<a class="main-navigation__list-item-link" href="{url}">{label}</a>' . "<span class='main-navigation__list-item-count'>" . Project::getProjectCount('Работа') . "</span>",
-                'activeCssClass' => 'main-navigation__list-item--active'
+                'linkTemplate' => '<a class="main-navigation__list-item-link" href="{url}">{label}</a>',
+                'activeCssClass' => 'main-navigation__list-item--active',
+                'encodeLabels' => false
             ]) ?>
     </nav>
 

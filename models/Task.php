@@ -13,8 +13,8 @@ use Yii;
  * @property string|null $dt_add
  * @property string|null $deadline
  * @property int|null $status
+ * @property string $file
  *
- * @property File[] $files
  * @property Project $project
  * @property Project[] $projects
  * @property User $user
@@ -50,12 +50,13 @@ class Task extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Задача',
             'project_id' => 'Project ID',
             'user_id' => 'User ID',
-            'dt_add' => 'Dt Add',
-            'deadline' => 'Deadline',
+            'dt_add' => 'Дата создания',
+            'deadline' => 'Дедлайн',
             'status' => 'Status',
+            'file' => 'Файл'
         ];
     }
 
@@ -93,7 +94,6 @@ class Task extends \yii\db\ActiveRecord
     {
         return Task::find()
             ->where(['project_id' => $id])
-            ->join('JOIN', 'project_task', 'task.id=task_id')
-            ->orderBy(['dt_add' => 'DESC']);
+            ->join('JOIN', 'project_task', 'task.id=task_id');
     }
 }
